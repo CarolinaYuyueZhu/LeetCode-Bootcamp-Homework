@@ -1,0 +1,76 @@
+# 8: String to Integer (atoi)
+class Solution(object):
+    def myAtoi(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        # set an empty integer and update it continuously
+        output = 0
+        s = s.strip()
+
+        if not s:
+            return 0
+        sign = 1
+        i = 0
+
+        if s[0] == "-":
+            sign = -1
+            i += 1
+        elif s[0] == "+":
+            sign = 1
+            i += 1
+        while i < len(s) and s[i].isdigit():
+            # the following is a smart way to express an integer in multiplication of 10
+            output = output * 10 + int(s[i])
+            i += 1
+        output *= sign
+
+        MIN, MAX = -2**31, 2**31 - 1
+        if output < MIN:
+            output = MIN
+        elif output > MAX:
+            output = MAX
+    
+        return output
+    
+# 438: Find All Anagrams in a String 
+# (test cases passed: 64/65, not optimal)
+
+class Solution(object):
+    def findAnagrams(self, s, p):
+        """
+        :type s: str
+        :type p: str
+        :rtype: List[int]
+        """
+        l = len(p)
+        # sort p for comparison
+        sorted_p = sorted(p)
+        output = []
+        for i in range(len(s)-l+1):
+            if sorted(s[i:i+l]) == sorted_p:
+                output.append(i)
+                i += 1
+        return output
+    
+    
+# 151: Reverse Words in a String
+class Solution(object):
+    def reverseWords(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        s = s.strip()
+        s = s.split(" ") # becomes a list
+        ordered = []
+        for i in range(len(s)):
+            if s[i] == "":
+                continue
+                i += 1
+            else:
+                ordered.append(s[i])
+        # reverse a list using [::-1], 
+        # use "separator".join(my_list), to join a list into a string
+        return " ".join(ordered[::-1])
