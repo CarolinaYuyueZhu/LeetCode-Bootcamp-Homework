@@ -1,3 +1,43 @@
+# 234. Palindrome Linked List
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def isPalindrome(self, head: Optional[ListNode]) -> bool:
+        slow, fast = head, head
+        # slow move one step each time, fast move two steps each time
+        # when fast eaches the end, slow is in the middle
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+
+        # reverse the second half
+        # second half: 2 -> 1 -> Null 
+        prev, curr = None, slow
+        while curr:
+            nxt = curr.next
+            curr.next = prev
+            prev = curr
+            curr = nxt
+        second = prev # second half: Null -> 1 -> 2
+
+        # compare first and second half
+        first = head
+        while second:
+            if first.val != second.val:
+                return False
+            first = first.next
+            second = second.next
+        return True
+
+
+# 143. Reorder List
+
+
+
+
 # 73: Set Matrix Zeros
 class Solution:
     def setZeroes(self, matrix: List[List[int]]) -> None:
